@@ -69,12 +69,13 @@ function M.RemoveTodoPrefix(text)
 	local category, msg = text:match("^%s*[Tt][Oo][Dd][Oo]::(%S+)%s+(.*)")
 	if category and msg then
 		result = category .. ":: " .. msg
+	else
+		-- Case::No category
+		-- "TODO:: something" or just "TODO::"
+		result, _ = text:gsub("^[Tt][Oo][Dd][Oo]%s*::%s*", "Missing category::", 1)
 	end
-
-	-- Case::No category
-	-- "TODO:: something" or just "TODO::"
-	result, _ = text:gsub("^[Tt][Oo][Dd][Oo]%s*::%s*", "Missing category::", 1)
 
 	return result
 end
+
 return M
